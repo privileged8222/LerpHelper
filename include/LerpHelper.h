@@ -7,6 +7,16 @@ namespace LerpHelper
 	{
 		float x, y;
 
+		float DistanceTo( Point& p )
+		{
+			return std::hypot( p->x - this->x, p->y - this->y );
+		}
+
+		float DistanceTo( Point&& p )
+		{
+			return std::hypot( p->x - this->x, p->y - this->y );
+		}
+
 		Point* operator -> ( )
 		{
 			return this;
@@ -24,7 +34,7 @@ namespace LerpHelper
 			std::vector<Point> points{ };
 			for ( float i = start; i <= end; i += res )
 			{
-				points.push_back( Point{ i, ( m * i ) + c } );
+				points.push_back( Point{ i, ( this->m * i ) + this->c } );
 			}
 			return points;
 		}
@@ -34,7 +44,7 @@ namespace LerpHelper
 			std::vector<Point> points{ };
 			for ( float i = start; i <= end; i += res )
 			{
-				points.push_back( Point{ i, ( m * i ) + c } );
+				points.push_back( Point{ i, ( this->m * i ) + this->c } );
 			}
 			return points;
 		}
@@ -65,28 +75,28 @@ namespace LerpHelper
 
 	inline float CalculateC( float& gradient, Point& p ) 
 	{
-		return ( gradient * ( -p.x ) + p.y );
+		return ( gradient * ( -p->x ) + p->y );
 	}
 
 	inline float CalculateM( Point& a, Point& b )
 	{
-		return ( ( b.y - a.y ) / ( b.x - a.x ) );
+		return ( ( b->y - a->y ) / ( b->x - a->x ) );
 	}
 
 	inline float CalculateC( float&& gradient, Point& p )
 	{
-		return ( gradient * ( -p.x ) + p.y );
+		return ( gradient * ( -p->x ) + p->y );
 	}
 
-	std::ostream& operator << ( std::ostream& os, const Point& p )
+	std::ostream& operator << ( std::ostream& os, Point& p )
 	{
-		os << p.x << " " << p.y;
+		os << p->x << " " << p->y;
 		return os;
 	}
 
-	std::ostream& operator << ( std::ostream& os, const Line& l )
+	std::ostream& operator << ( std::ostream& os, Line& l )
 	{
-		os << "y = " << l.m << "x + " << l.c << "\n";
+		os << "y = " << l->m << "x + " << l->c << std::endl;
 		return os;
 	}
 }

@@ -22,4 +22,6 @@ int main( )
 	std::cout << point->x << std::endl;
 
 	std::cout << ( l->IsPointOnLine( c ) ? "Point is on line" : "Point is not on line" ) << std::endl;
+
+	std::cout << "Distance from a -> b: " << a->DistanceTo( b ) << std::endl;
 }
